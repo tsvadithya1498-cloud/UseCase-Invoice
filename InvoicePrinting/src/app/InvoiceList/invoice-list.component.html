@@ -1,0 +1,53 @@
+<form (ngSubmit)="onSubmit()" #invoiceList="ngForm">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <label for="companyid" class="control-label">Company ID</label>
+        </div>
+        <div class="col-auto">
+            <input 
+            type="text"
+            class="form-control mb-2" 
+            required
+            maxlength="6"
+            ngModel
+            name='companyId'
+            #companyId="ngModel">
+            <span class="help-block" style="color: red;" *ngIf="!companyId.valid && companyId.touched==true">
+                Please provide Company Id
+            </span>
+        </div>        
+        <div class="col-auto">
+            <button type="submit" 
+                class="btn btn-primary mb-2"
+                [disabled]="!invoiceList.valid">Submit
+            </button>
+        </div>
+    </div>
+    <br><br>
+    <p *ngIf="isFetching" align="center">
+        <loading-spinner></loading-spinner>
+    </p>
+    <div *ngIf=isExists>
+        <h5 class="text-primary" align="center">Invoice Details</h5>
+    </div>
+    <div *ngIf="!isFetching">
+        <table class="table table-striped" *ngIf=isExists>
+            <thead>
+              <tr>
+                <th scope="col">Invoice #</th>
+                <th scope="col">Total Amount ($)</th>
+                <th scope="col">Print</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of invoiceModel">
+                <th scope="row">{{ item.InvoiceId}}</th>
+                <td>{{ item.GrandTotal }}</td>
+                <td>
+                    <a href="#">Print</a>
+                </td>
+              </tr>
+            </tbody>              
+        </table>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+<form class="form-horizontal" (ngSubmit)="onSubmit()" #invoiceGeneration="ngForm">
+    <div>
+        <div class="form-group">
+            <label for="invoicenumber" class="col-sm-2 control-label">Invoice Number</label>    
+            <div class="col-sm-5">
+                <input type="text" 
+                class="form-control"
+                required
+                maxlength="20"
+                ngModel
+                name='invoiceId'
+                #invoiceId="ngModel">
+                <span class="help-block" style="color: red;" *ngIf="!invoiceId.valid && invoiceId.touched==true">
+                    Please provide invoice number
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" 
+                class="btn btn-primary mb-2"
+                [disabled]="!invoiceGeneration.valid">Submit</button>
+            </div>
+        </div>
+        <div align="center" *ngIf=isError>
+            <span class="help-block" style="color: red;">Please provide valid invoice number</span>
+        </div>
+        <div>
+            <invoice-print [invoiceModel]="invoiceModel"></invoice-print>
+        </div>
+    </div>
+</form>

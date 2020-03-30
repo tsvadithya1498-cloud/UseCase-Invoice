@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InvoiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblCompanyDetails">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AddressLine1" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AddressLine2" Type="nvarchar" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="State" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Zipcode" Type="int" Nullable="false" />
+    <Property Name="Country" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblInvoiceDetails">
+    <Key>
+      <PropertyRef Name="InvoiceDetailId" />
+    </Key>
+    <Property Name="InvoiceDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceId" Type="varchar" MaxLength="20" />
+    <Property Name="Description" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Quantity" Type="smallint" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblInvoiceMaster">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="InvoiceId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CompanyId" Type="varchar" MaxLength="6" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="BillingContactName" Type="varchar" MaxLength="25" />
+    <Property Name="ShippingContactName" Type="varchar" MaxLength="25" />
+    <Property Name="ShippingCompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ShippingAddressLine1" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ShippingAddressLine2" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShippingCity" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ShippingState" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="ShippingZipcode" Type="int" Nullable="false" />
+    <Property Name="ShippingCountry" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ShippingPhone" Type="varchar" MaxLength="20" />
+    <Property Name="ShippingEmail" Type="varchar" MaxLength="50" />
+    <Property Name="SubTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Discount" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="GrandTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="TaxRate" Type="decimal" Precision="2" Scale="2" />
+    <Property Name="TaxAmount" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="ShippingCharges" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Balance" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <Association Name="FK__tblInvoic__Compa__2E1BDC42">
+    <End Role="tblCompanyDetails" Type="Self.tblCompanyDetails" Multiplicity="0..1" />
+    <End Role="tblInvoiceMaster" Type="Self.tblInvoiceMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCompanyDetails">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="tblInvoiceMaster">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblInvoic__Invoi__30F848ED">
+    <End Role="tblInvoiceMaster" Type="Self.tblInvoiceMaster" Multiplicity="0..1" />
+    <End Role="tblInvoiceDetails" Type="Self.tblInvoiceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblInvoiceMaster">
+        <PropertyRef Name="InvoiceId" />
+      </Principal>
+      <Dependent Role="tblInvoiceDetails">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InvoiceModelStoreContainer">
+    <EntitySet Name="tblCompanyDetails" EntityType="Self.tblCompanyDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblInvoiceDetails" EntityType="Self.tblInvoiceDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblInvoiceMaster" EntityType="Self.tblInvoiceMaster" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tblInvoic__Compa__2E1BDC42" Association="Self.FK__tblInvoic__Compa__2E1BDC42">
+      <End Role="tblCompanyDetails" EntitySet="tblCompanyDetails" />
+      <End Role="tblInvoiceMaster" EntitySet="tblInvoiceMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblInvoic__Invoi__30F848ED" Association="Self.FK__tblInvoic__Invoi__30F848ED">
+      <End Role="tblInvoiceMaster" EntitySet="tblInvoiceMaster" />
+      <End Role="tblInvoiceDetails" EntitySet="tblInvoiceDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,131 @@
+<form (ngSubmit)="onSubmit()" #invoiceList="ngForm">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="row p-5">
+                        <div class="col-md-6" align="left">
+                            <img width="350px" src="https://www.underconsideration.com/brandnew/archives/mr_cooper_followup_00.png">
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <p class="font-weight-bold mb-4">
+                                <button type="submit" 
+                                class="btn btn-primary mb-2">Print
+                            </button></p>
+                            <p class="font-weight-bold mb-4">Invoice</p>
+                            <p class="text-muted">Date : {{ invoiceModel.Date }} 
+                            <p class="text-muted">InvoiceNo : {{ invoiceModel.InvoiceId}}</p>
+                        </div>
+                    </div>
+
+                    <hr class="my-5">
+
+                    <div class="row pb-5 p-5">
+                        <div class="col-md-6">
+                            <p class="font-weight-bold mb-4">Billing Details</p>
+                            <p class="font-weight-bold mb-4">{{ invoiceModel.BillingContactName }} </p>
+                            <!-- <p class="mb-1">{{ invoiceModel.BillingContactName }} </p>
+                            <p>{{ invoiceModel.BillingContactName }} </p>
+                            <p class="mb-1">{{ invoiceModel.BillingContactName }} </p>
+                            <p class="mb-1">{{ invoiceModel.BillingContactName }} </p> -->
+                        </div>
+
+                        <div class="col-md-6 text-right">
+                            <p class="font-weight-bold mb-4">Shipping Details</p>
+                            <p class="mb-1"><span class="text-muted">{{ invoiceModel.ShippingContactName }}</span> </p>
+                            <p class="mb-1"><span class="text-muted">{{ invoiceModel.ShippingCompanyName }}</span></p>
+                            <p class="mb-1"><span class="text-muted">{{ invoiceModel.ShippingAddressLine1 }}</span> </p>
+                            <p class="mb-1"><span class="text-muted">{{ invoiceModel.ShippingAddressLine2 }}</span> </p>
+                            <p class="mb-1"><span class="text-muted">{{ invoiceModel.ShippingCity }}, {{invoiceModel.ShippingState}}</span> </p>
+                            <p class="mb-1"><span class="text-muted">{{ invoiceModel.ShippingCountry }}</span> </p>
+                            <p class="mb-1"><span class="text-muted">{{ invoiceModel.ShippingZipcode }}</span> </p>
+                        </div>
+                    </div>
+
+                    <div class="row p-5">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="border-0 text-uppercase small font-weight-bold">Description</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">Quantity</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">Unit Price</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of invoiceModel.lstInvoiceDetails">
+                                        <td>{{item.Description}}</td>
+                                        <td>{{item.Price}}</td>
+                                        <td>{{item.Quantity}}</td>
+                                        <td>{{item.Total}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-5 ml-auto">
+                        <table class="table table-clear">
+                            <tbody>
+                                <tr>
+                                    <td class="left">
+                                    <strong>SUBTOTAL</strong>
+                                    </td>
+                                    <td class="right"> {{ invoiceModel.SubTotal }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                    <strong>DISCOUNT</strong>
+                                    </td>
+                                    <td class="right">{{ invoiceModel.Discount }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                    <strong>TAX RATE </strong>
+                                    </td>
+                                    <td class="right"> {{ invoiceModel.TaxRate }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                    <strong>SUBTOTAL LESS DISCOUNT</strong>
+                                    </td>
+                                    <td class="right">{{ invoiceModel.Discount }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                    <strong>TOTAL TAX</strong>
+                                    </td>
+                                    <td class="right">
+                                    {{ invoiceModel.TaxAmount }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                    <strong>SHIPPING CHARGES</strong>
+                                    </td>
+                                    <td class="right">
+                                    {{ invoiceModel.ShippingCharges }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                    <strong>BALANCE</strong>
+                                    </td>
+                                    <td class="right">
+                                    <strong>$ {{ invoiceModel.Balance }}</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-light mt-5 mb-5 text-center small">by : <a class="text-light" target="_blank" href="http://totoprayogo.com">totoprayogo.com</a></div>
+
+</div>
+</form>
